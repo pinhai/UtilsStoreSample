@@ -76,7 +76,9 @@ class BottomBar @JvmOverloads constructor(
             override fun onClick(v: View) {
                 if (mListener == null) return
                 val pos = tab.tabPosition
+                tab.unreadCount = 0
                 if (currentItemPosition == pos) {
+                    //点击了当前tab
                     mListener!!.onTabReselected(pos)
                 } else {
                     mListener!!.onTabSelected(pos, currentItemPosition)

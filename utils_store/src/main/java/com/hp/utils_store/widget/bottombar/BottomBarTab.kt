@@ -15,6 +15,7 @@ import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import com.hp.utils_store.R
+import com.hp.utils_store.utils.ScreenUtils
 
 class BottomBarTab(
     context: Context,
@@ -68,8 +69,8 @@ class BottomBarTab(
         mTvTitle!!.layoutParams = paramsTv
         lLContainer.addView(mTvTitle)
         addView(lLContainer)
-        val min = dip2px(context, 9f)
-        val padding = dip2px(context, 3f)
+        val min = dip2px(9f)
+        val padding = dip2px(3f)
         mTvUnreadCount = TextView(context)
         mTvUnreadCount!!.setBackgroundResource(R.drawable.shape_msg_bubble)
         mTvUnreadCount!!.minWidth = min
@@ -78,8 +79,8 @@ class BottomBarTab(
         mTvUnreadCount!!.gravity = Gravity.CENTER
         val tvUnReadParams = LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, min)
         tvUnReadParams.gravity = Gravity.CENTER
-        tvUnReadParams.leftMargin = dip2px(context, 17f)
-        tvUnReadParams.bottomMargin = dip2px(context, 14f)
+        tvUnReadParams.leftMargin = dip2px(17f)
+        tvUnReadParams.bottomMargin = dip2px(14f)
         mTvUnreadCount!!.layoutParams = tvUnReadParams
         mTvUnreadCount!!.visibility = GONE
         addView(mTvUnreadCount)
@@ -151,12 +152,8 @@ class BottomBarTab(
             }
         }
 
-    private fun dip2px(context: Context, dp: Float): Int {
-        return TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_DIP,
-            dp,
-            context.resources.displayMetrics
-        ).toInt()
+    private fun dip2px(dp: Float): Int {
+        return ScreenUtils.dp2px(dp)
     }
 
     init {
