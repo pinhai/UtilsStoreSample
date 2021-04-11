@@ -5,19 +5,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.hp.utilsstoresample.R
+import com.hp.utilsstoresample.ui.base.BaseFragment
 
-class HomeFragment : Fragment() {
+class HomeFragment : BaseFragment() {
 
     private lateinit var homeViewModel: HomeViewModel
 
+    companion object{
+        fun newInstance(): HomeFragment {
+            val args = Bundle()
+            val fragment = HomeFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         homeViewModel =
                 ViewModelProvider(this).get(HomeViewModel::class.java)

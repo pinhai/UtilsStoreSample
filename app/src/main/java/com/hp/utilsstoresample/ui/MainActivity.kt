@@ -1,36 +1,61 @@
 package com.hp.utilsstoresample.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import com.hp.utils_store.widget.bottombar.BottomBar
 import com.hp.utils_store.widget.bottombar.BottomBarTab
 import com.hp.utilsstoresample.R
 import com.hp.utilsstoresample.ui.base.BaseActivity
+import com.hp.utilsstoresample.ui.dashboard.DashboardFragment
+import com.hp.utilsstoresample.ui.home.HomeFragment
+import com.hp.utilsstoresample.ui.notifications.NotificationsFragment
+import me.yokeyword.fragmentation.SupportFragment
 
 class MainActivity : BaseActivity() {
 
-    private val mFragments = arrayOfNulls<Fragment>(3)
+    private val mFragments = arrayOfNulls<SupportFragment>(3)
     private lateinit var mBottomBar: BottomBar
+
+    private val FIRST = 0
+    private val SECOND = 1
+    private val THIRD = 2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        if (savedInstanceState == null) {
+            mFragments[FIRST] = HomeFragment.newInstance()
+            mFragments[SECOND] = DashboardFragment.newInstance()
+            mFragments[THIRD] = NotificationsFragment.newInstance()
+            loadMultipleRootFragment(
+                R.id.fl_tab_container, FIRST,
+                mFragments[FIRST],
+                mFragments[SECOND],
+                mFragments[THIRD],
+            )
+        } else {
+            // 这里库已经做了Fragment恢复,所有不需要额外的处理了, 不会出现重叠问题
+            // 这里我们需要拿到mFragments的引用,也可以通过getChildFragmentManager.getFragments()自行进行判断查找(效率更高些),用下面的方法查找更方便些
+            mFragments[FIRST] = findFragment(HomeFragment::class.java)
+            mFragments[SECOND] = findFragment(DashboardFragment::class.java)
+            mFragments[THIRD] = findFragment(NotificationsFragment::class.java)
+        }
 
         initView()
     }
 
     private fun initView() {
         mBottomBar = findViewById(R.id.bottomBar)
-        mBottomBar.addItem(BottomBarTab(this, R.drawable.ic_home_black_24dp, getString(R.string.title_home)))
-            .addItem(BottomBarTab(this, R.drawable.ic_dashboard_black_24dp, getString(R.string.title_dashboard)))
-            .addItem(BottomBarTab(this, R.drawable.ic_notifications_black_24dp, getString(R.string.title_notifications)))
+        mBottomBar.addItem(BottomBarTab(this, R.drawable.selector_tab1, getString(R.string.title_home)))
+            .addItem(BottomBarTab(this, R.drawable.selector_tab2, getString(R.string.title_dashboard)))
+            .addItem(BottomBarTab(this, R.drawable.selector_tab3, getString(R.string.title_notifications)))
         mBottomBar.setOnTabSelectedListener(onTabSelectedListener)
         mBottomBar.setCurrentItem(0)
     }
 
     private val onTabSelectedListener = object : BottomBar.OnTabSelectedListener {
             override fun onTabSelected(position: Int, prePosition: Int) {
-//                showHideFragment(mFragments[position], mFragments[prePosition])
+                showHideFragment(mFragments[position], mFragments[prePosition])
             }
 
             override fun onTabUnselected(position: Int) {}

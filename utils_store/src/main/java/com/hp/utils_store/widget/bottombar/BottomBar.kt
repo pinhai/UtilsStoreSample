@@ -59,6 +59,15 @@ class BottomBar @JvmOverloads constructor(
         mTabParams!!.weight = 1f
     }
 
+    /**
+     * 设置tab选中和未选中状态的文本颜色，在{@link #addItem(com.hp.utils_store.widget.bottombar.BottomBarTab)}之前调用
+     */
+    fun setTitleColor(@ColorInt titleColorSelected: Int, @ColorInt titleColorUnselected: Int): BottomBar {
+        this.titleColorSelected = titleColorSelected
+        this.titleColorUnselected = titleColorUnselected
+        return this
+    }
+
     fun addItem(tab: BottomBarTab): BottomBar {
         if(titleColorSelected != null && titleColorUnselected != null){
             tab.setTitleColor(titleColorSelected!!, titleColorUnselected!!)
@@ -82,15 +91,6 @@ class BottomBar @JvmOverloads constructor(
         tab.layoutParams = mTabParams
         mTabLayout!!.addView(tab)
         mTabs.add(tab)
-        return this
-    }
-
-    /**
-     * 设置tab选中和未选中状态的文本颜色
-     */
-    fun setTitleColor(@ColorInt titleColorSelected: Int, @ColorInt titleColorUnselected: Int): BottomBar {
-        this.titleColorSelected = titleColorSelected
-        this.titleColorUnselected = titleColorUnselected
         return this
     }
 
