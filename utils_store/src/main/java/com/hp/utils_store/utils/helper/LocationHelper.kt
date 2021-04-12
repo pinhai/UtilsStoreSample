@@ -8,6 +8,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
+import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Build
 import android.provider.Settings
@@ -15,7 +16,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.hp.utils_store.R
 import com.hp.utils_store.utils.AppUtil
-import com.hp.utils_store.utils.AppUtil.checkMockLocation
 import com.hp.utils_store.utils.LogUtil
 import com.hp.utils_store.utils.PermissionUtil
 import com.hp.utils_store.utils.getClassName
@@ -29,6 +29,12 @@ class LocationHelper(context: Context) {
     private var mContext: Context = context
     private var mFragment: Fragment? = null
     private var listener: OnLocationResultListener? = null
+
+    private var locationListener : LocationListener? = null
+    //更新定位的最小时间，单位毫秒
+    private var minTimeMs = 10*60*1000L
+    //更新定位的最小距离，单位米
+    private var minDistanceM = 200f
 
     private val permission = arrayOf<String?>(
         Manifest.permission.ACCESS_FINE_LOCATION,
@@ -70,8 +76,9 @@ class LocationHelper(context: Context) {
      * 请求位置信息
      */
     fun requestLocation(listener: OnLocationResultListener?) {
+        if(mContext == null) return
         this.listener = listener
-        if (checkMockLocation(mContext!!)) {
+        if (AppUtil.checkMockLocation(mContext!!)) {
             showMockPromptDialog()
             return
         }
@@ -106,7 +113,7 @@ class LocationHelper(context: Context) {
     }
 
     /**
-     * 放到定位activity的onRestart方法中
+     * 放到定位activity或者Fragment的onRestart方法中
      */
     fun checkMockLocation() {
         if (mContext != null && !AppUtil.checkMockLocation(mContext) && mockPromptDialog != null && mockPromptDialog!!.isShowing) {
@@ -135,9 +142,12 @@ class LocationHelper(context: Context) {
         //前面已经判断这两种方式至少有一种可用
         val provider = if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) LocationManager.GPS_PROVIDER
                         else LocationManager.NETWORK_PROVIDER
-        locationManager.requestLocationUpdates(provider, 10*60*1000L, 200f){
-            locationSuccessful(it)
+        if(locationListener == null){
+            locationListener = LocationListener{
+                locationSuccessful(it)
+            }
         }
+        locationManager.requestLocationUpdates(provider, minTimeMs, minDistanceM, locationListener!!)
 
     }
 
@@ -152,7 +162,9 @@ class LocationHelper(context: Context) {
     }
 
     fun stopLocation() {
-
+        if(locationListener != null){
+            locationManager.removeUpdates(locationListener!!)
+        }
     }
 
     interface OnLocationResultListener {
