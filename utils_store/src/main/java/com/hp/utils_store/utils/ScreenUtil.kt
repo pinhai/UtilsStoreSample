@@ -1,14 +1,13 @@
 package com.hp.utils_store.utils
 
 import android.content.Context
-import android.util.Log
 
 /**
 
  * Author：admin_h on 2021/4/8 18:35
     屏幕相关工具类
  */
-object ScreenUtils {
+object ScreenUtil {
 
     private lateinit var context : Context
     private var screenWidth = 0
@@ -39,7 +38,7 @@ object ScreenUtils {
         val resources = context.resources
         val resourceId = resources.getIdentifier("status_bar_height", "dimen", "android")
         val height = resources.getDimensionPixelSize(resourceId)
-        Log.v("dbw", "Status height:$height")
+        LogUtil.v("dbw", "Status height:$height")
         return height
     }
 
@@ -47,7 +46,7 @@ object ScreenUtils {
         val resources = context.resources
         val resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android")
         val height = resources.getDimensionPixelSize(resourceId)
-        Log.v("dbw", "Navi height:$height")
+        LogUtil.v("dbw", "Navi height:$height")
         return height
     }
 

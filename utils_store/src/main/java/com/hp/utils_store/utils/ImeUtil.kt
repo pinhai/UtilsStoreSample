@@ -7,7 +7,7 @@ import android.view.inputmethod.InputMethodManager
 /**
  * 输入法工具类
  */
-object ImeUtils {
+object ImeUtil {
     /**
      * 开关输入法
      */

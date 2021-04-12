@@ -10,7 +10,7 @@ import java.util.*
 
  日期相关工具类
  */
-object DateUtils {
+object DateUtil {
 
     val DATE_PATTERN_1 = "yyyy-MM-dd"
     val DATE_PATTERN_2 = "yyyy-MM-dd HH:mm:ss"

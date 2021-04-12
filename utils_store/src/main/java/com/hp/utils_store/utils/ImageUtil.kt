@@ -17,7 +17,7 @@ import java.io.*
  * Author：admin_h on 2021/4/8 15:50
 
  */
-object ImageUtils {
+object ImageUtil {
 
     /**
      * 保存bitmap到文件

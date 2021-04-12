@@ -6,7 +6,7 @@ import java.util.*
 /**
  * Map和Object互转工具类
  */
-object ObjectUtils {
+object ObjectUtil {
 
     fun mapToObject(map: Map<String?, String?>?, beanClass: Class<*>): Any? {
         if (map == null) return null

@@ -14,7 +14,7 @@ import androidx.core.app.ActivityCompat
 
  应用相关工具类
  */
-object AppUtils {
+object AppUtil {
 
     /**
      * 获取APP版本

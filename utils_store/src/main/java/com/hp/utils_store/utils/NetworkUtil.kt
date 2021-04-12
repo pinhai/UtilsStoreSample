@@ -6,17 +6,14 @@ import android.app.Dialog
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.wifi.WifiManager
-import android.util.Log
-import java.io.UnsupportedEncodingException
 import java.net.Inet4Address
 import java.net.NetworkInterface
 import java.net.SocketException
-import java.net.URLEncoder
 
 /**
  * 网络工具类
  */
-object NetworkUtils {
+object NetworkUtil {
     /**
      * 是否存在网络连接
      */
@@ -99,33 +96,6 @@ object NetworkUtils {
         val dialog: Dialog = builder.create()
         dialog.setOnDismissListener { activity.finish() }
         dialog.show()
-    }
-
-    /**
-     * 在URL后连接参数，主要是GET方式时使用
-     */
-    fun connectParams(baseUrl: String, map: Map<String?, String?>?): String {
-        var baseUrl = baseUrl
-        if (map == null) return baseUrl
-        val param = StringBuffer()
-        var i = 0
-        var para: String?
-        for (key in map.keys) {
-            if (map[key] == null) continue
-            if (i == 0 && baseUrl.indexOf('?') == -1) param.append("?") else param.append("&")
-
-            // param.append(key).append("=").append(map.get(key));
-            try {
-                para = URLEncoder.encode(map[key], "utf-8")
-                param.append(key).append("=").append(para)
-            } catch (e: UnsupportedEncodingException) {
-                e.printStackTrace()
-            }
-            i++
-        }
-        baseUrl += param
-        Log.i("NetworkUtils", "路径: $baseUrl")
-        return baseUrl
     }
 
     fun getIPAddress(context: Context): String? {

@@ -15,7 +15,7 @@ import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import com.hp.utils_store.R
-import com.hp.utils_store.utils.ScreenUtils
+import com.hp.utils_store.utils.ScreenUtil
 
 class BottomBarTab(
     context: Context,
@@ -153,7 +153,7 @@ class BottomBarTab(
         }
 
     private fun dip2px(dp: Float): Int {
-        return ScreenUtils.dp2px(dp)
+        return ScreenUtil.dp2px(dp)
     }
 
     init {
