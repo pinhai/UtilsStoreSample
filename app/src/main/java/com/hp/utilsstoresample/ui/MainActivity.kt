@@ -5,7 +5,7 @@ import com.hp.utils_store.widget.bottombar.BottomBar
 import com.hp.utils_store.widget.bottombar.BottomBarTab
 import com.hp.utilsstoresample.R
 import com.hp.utilsstoresample.ui.base.BaseActivity
-import com.hp.utilsstoresample.ui.dashboard.ActionsFragment
+import com.hp.utilsstoresample.ui.actions.ActionsFragment
 import com.hp.utilsstoresample.ui.home.HomeFragment
 import com.hp.utilsstoresample.ui.notifications.NotificationsFragment
 import kotlinx.android.synthetic.main.activity_main.*

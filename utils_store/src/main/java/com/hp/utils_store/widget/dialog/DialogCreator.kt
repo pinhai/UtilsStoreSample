@@ -2,9 +2,12 @@ package com.hp.utils_store.widget.dialog
 
 import android.app.Dialog
 import android.content.Context
+import android.text.TextUtils
 import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.hp.utils_store.R
 import com.hp.utils_store.utils.ScreenUtil
 
@@ -40,8 +43,10 @@ object DialogCreator {
     /**
      * 底部对话框
      */
-    fun getBottomDialog(context: Context, view: View,
-                                height: Int = ViewGroup.LayoutParams.WRAP_CONTENT): Dialog {
+    fun getBottomDialog(
+        context: Context, view: View,
+        height: Int = ViewGroup.LayoutParams.WRAP_CONTENT
+    ): Dialog {
         val dialog = Dialog(context, R.style.DialogStyle)
         dialog.setContentView(view)
         dialog.setCanceledOnTouchOutside(true)

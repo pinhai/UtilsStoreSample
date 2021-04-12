@@ -1,4 +1,4 @@
-package com.hp.utils_store.utils
+package com.hp.utils_store.utils.manager
 
 import android.content.Context
 import android.os.Environment

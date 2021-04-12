@@ -1,4 +1,4 @@
-package com.hp.utilsstoresample.ui.dashboard
+package com.hp.utilsstoresample.ui.actions
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

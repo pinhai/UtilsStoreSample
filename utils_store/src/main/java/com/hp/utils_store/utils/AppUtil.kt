@@ -5,6 +5,8 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
+import android.os.Build
+import android.provider.Settings
 import android.telephony.TelephonyManager
 import androidx.core.app.ActivityCompat
 
@@ -42,5 +44,24 @@ object AppUtil {
         return if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) !== PackageManager.PERMISSION_GRANTED) {
             null
         } else telephonyManager.deviceId
+    }
+
+    /**
+     * 判断用户是否开启了模拟位置功能
+     */
+    fun checkMockLocation(context: Context): Boolean {
+        var isOpen = Settings.Secure.getInt(
+            context.contentResolver,
+            Settings.Secure.ALLOW_MOCK_LOCATION,
+            0
+        ) != 0
+        /**
+         * 该判断API是androidM以下的API,由于Android M中已经没有了关闭允许模拟位置的入口,所以这里一旦检测到开启了模拟位置,并且是android M以上,则
+         * 默认设置为未有开启模拟位置
+         */
+        if (isOpen && Build.VERSION.SDK_INT > 22) {
+            isOpen = false
+        }
+        return isOpen
     }
 }
