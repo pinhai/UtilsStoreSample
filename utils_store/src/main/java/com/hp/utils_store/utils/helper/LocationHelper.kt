@@ -7,9 +7,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.location.Location
-import android.location.LocationListener
-import android.location.LocationManager
+import android.location.*
 import android.os.Build
 import android.provider.Settings
 import androidx.appcompat.app.AlertDialog
@@ -152,8 +150,11 @@ class LocationHelper(context: Context) {
     }
 
     private fun locationSuccessful(it: Location) {
-        LogUtil.v(getClassName(), "${it.longitude},${it.latitude}")
-        listener?.onLocationResult(it)
+        //根据经纬度获取地址
+        val geocoder = Geocoder(mContext)
+        val addresses = geocoder.getFromLocation(it.latitude, it.longitude, 1)
+        listener?.onLocationResult(addresses[0])
+        LogUtil.v(getClassName(), addresses[0].toString())
     }
 
     private fun locationFailed() {
@@ -168,7 +169,7 @@ class LocationHelper(context: Context) {
     }
 
     interface OnLocationResultListener {
-        fun onLocationResult(location: Location?)
+        fun onLocationResult(location: Address?)
         fun onLocationFailed()
     }
 

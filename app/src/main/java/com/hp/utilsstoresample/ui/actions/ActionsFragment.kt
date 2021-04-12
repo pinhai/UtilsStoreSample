@@ -1,5 +1,6 @@
 package com.hp.utilsstoresample.ui.actions
 
+import android.location.Address
 import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -60,7 +61,7 @@ class ActionsFragment : BaseFragment(),View.OnClickListener {
     private fun location() {
         locationHelper = LocationHelper(this)
         locationHelper.requestLocation(object : LocationHelper.OnLocationResultListener{
-            override fun onLocationResult(location: Location?) {
+            override fun onLocationResult(address: Address?) {
             }
 
             override fun onLocationFailed() {
