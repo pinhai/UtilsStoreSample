@@ -22,7 +22,7 @@ object ServiceCreator {
     private var loggingInterceptor = HttpLoggingInterceptor { message ->
         //打印retrofit日志
         LogUtil.d(getClassName(), message)
-    }
+    }.setLevel(HttpLoggingInterceptor.Level.BODY)
 
     private val okHttpClient = OkHttpClient.Builder()
             .writeTimeout(60, TimeUnit.SECONDS)

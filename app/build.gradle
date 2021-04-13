@@ -33,7 +33,7 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
-            buildConfigField 'String', 'BASE_URL', '"https://www.baidu.com"'
+            buildConfigField 'String', 'BASE_URL', '"https://api.caiyunapp.com"'
             manifestPlaceholders = [
                     ID    : "123",
             ]
@@ -43,7 +43,7 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
-            buildConfigField 'String', 'BASE_URL', '"https://www.baidu.com"'
+            buildConfigField 'String', 'BASE_URL', '"https://api.caiyunapp.com"'
             manifestPlaceholders = [
                     ID    : "123",
             ]

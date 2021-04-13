@@ -1,7 +1,6 @@
 package com.hp.utilsstoresample.ui.actions
 
 import android.location.Address
-import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,14 +10,19 @@ import com.hp.utils_store.utils.LogUtil
 import com.hp.utils_store.utils.getClassName
 import com.hp.utils_store.utils.helper.LocationHelper
 import com.hp.utilsstoresample.R
+import com.hp.utilsstoresample.network.ServiceCreator
+import com.hp.utilsstoresample.network.service.CaiYunService
 import com.hp.utilsstoresample.ui.base.BaseFragment
-import kotlinx.android.synthetic.main.fragment_dashboard.*
+import kotlinx.android.synthetic.main.fragment_actions.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ActionsFragment : BaseFragment(),View.OnClickListener {
 
     private lateinit var actionsViewModel: ActionsViewModel
 
-    private lateinit var locationHelper: LocationHelper
+    private var locationHelper: LocationHelper? = null
 
     companion object{
         fun newInstance(): ActionsFragment {
@@ -33,12 +37,13 @@ class ActionsFragment : BaseFragment(),View.OnClickListener {
                               savedInstanceState: Bundle?): View? {
         actionsViewModel = ViewModelProvider(this).get(ActionsViewModel::class.java)
 
-        return inflater.inflate(R.layout.fragment_dashboard, container, false)
+        return inflater.inflate(R.layout.fragment_actions, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         btn_get_location.setOnClickListener(this)
+        btn_get_weather_info.setOnClickListener(this)
     }
 
     override fun onRequestPermissionsResult(
@@ -46,7 +51,7 @@ class ActionsFragment : BaseFragment(),View.OnClickListener {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        locationHelper.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        locationHelper!!.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
     override fun onClick(v: View) {
@@ -55,13 +60,30 @@ class ActionsFragment : BaseFragment(),View.OnClickListener {
                 LogUtil.v(getClassName(), "点击定位按钮")
                 location();
             }
+            R.id.btn_get_weather_info -> {
+                location(true)
+            }
         }
     }
 
-    private fun location() {
-        locationHelper = LocationHelper(this)
-        locationHelper.requestLocation(object : LocationHelper.OnLocationResultListener{
+    private fun getWeatherInfo(longitude: Double, latitude: Double) {
+        ServiceCreator.create(CaiYunService::class.java)
+            .getRealtimeWeather(longitude, latitude)
+            .enqueue(object : Callback<Any> {
+                override fun onResponse(call: Call<Any>, response: Response<Any>) {
+                }
+
+                override fun onFailure(call: Call<Any>, t: Throwable) {
+                }
+
+            })
+    }
+
+    private fun location(getWeatherInfo: Boolean = false) {
+        if(locationHelper == null) locationHelper = LocationHelper(this)
+        locationHelper!!.requestLocation(object : LocationHelper.OnLocationResultListener{
             override fun onLocationResult(address: Address?) {
+                if(getWeatherInfo && address != null) getWeatherInfo(address.longitude, address.latitude)
             }
 
             override fun onLocationFailed() {
