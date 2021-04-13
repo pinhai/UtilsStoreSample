@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.hp.utils_store.utils.LogUtil
+import com.hp.utils_store.utils.ToastUtil
 import com.hp.utils_store.utils.getClassName
 import com.hp.utils_store.utils.helper.LocationHelper
 import com.hp.utilsstoresample.R
-import com.hp.utilsstoresample.network.ServiceCreator
-import com.hp.utilsstoresample.network.service.CaiYunService
+import com.hp.utilsstoresample.logic.model.response.RealtimeWeatherModel
+import com.hp.utilsstoresample.logic.network.ServiceCreator
+import com.hp.utilsstoresample.logic.network.service.CaiYunService
 import com.hp.utilsstoresample.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_actions.*
 import retrofit2.Call
@@ -69,11 +71,14 @@ class ActionsFragment : BaseFragment(),View.OnClickListener {
     private fun getWeatherInfo(longitude: Double, latitude: Double) {
         ServiceCreator.create(CaiYunService::class.java)
             .getRealtimeWeather(longitude, latitude)
-            .enqueue(object : Callback<Any> {
-                override fun onResponse(call: Call<Any>, response: Response<Any>) {
+            .enqueue(object : Callback<RealtimeWeatherModel> {
+                override fun onResponse(call: Call<RealtimeWeatherModel>, response: Response<RealtimeWeatherModel>) {
+                    if(response.isSuccessful){
+                        ToastUtil.show(context, response.body()?.result?.realtime?.temperature?.toString() ?: "error")
+                    }
                 }
 
-                override fun onFailure(call: Call<Any>, t: Throwable) {
+                override fun onFailure(call: Call<RealtimeWeatherModel>, t: Throwable) {
                 }
 
             })

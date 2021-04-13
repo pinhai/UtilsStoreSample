@@ -1,4 +1,4 @@
-package com.hp.utilsstoresample.network
+package com.hp.utilsstoresample.logic.network
 
 import com.hp.utils_store.utils.LogUtil
 import com.hp.utils_store.utils.getClassName
@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit
 
  */
 object ServiceCreator {
-    private val BASE_URL = BuildConfig.BASE_URL
+    private const val BASE_URL = BuildConfig.BASE_URL
 
     private val cacheServices = HashMap<Class<*>, Any>()
 
