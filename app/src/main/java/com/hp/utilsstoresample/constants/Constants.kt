@@ -1,4 +1,4 @@
-package com.hp.utilsstoresample.Constants
+package com.hp.utilsstoresample.constants
 
 /**
 

@@ -11,16 +11,10 @@ import com.hp.utils_store.utils.ToastUtil
 import com.hp.utils_store.utils.getClassName
 import com.hp.utils_store.utils.helper.LocationHelper
 import com.hp.utilsstoresample.R
-import com.hp.utilsstoresample.logic.model.response.RealtimeWeatherModel
-import com.hp.utilsstoresample.logic.network.ServiceCreator
-import com.hp.utilsstoresample.logic.network.service.CaiYunService
 import com.hp.utilsstoresample.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_actions.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
-class ActionsFragment : BaseFragment(),View.OnClickListener {
+class ActionsFragment private constructor(): BaseFragment(),View.OnClickListener {
 
     private lateinit var actionsViewModel: ActionsViewModel
 
@@ -28,18 +22,23 @@ class ActionsFragment : BaseFragment(),View.OnClickListener {
 
     companion object{
         fun newInstance(): ActionsFragment {
-            val args = Bundle()
-            val fragment = ActionsFragment()
-            fragment.arguments = args
-            return fragment
+            return ActionsFragment()
         }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        actionsViewModel = ViewModelProvider(this).get(ActionsViewModel::class.java)
-
+        initViewModel()
         return inflater.inflate(R.layout.fragment_actions, container, false)
+    }
+
+    private fun initViewModel() {
+        actionsViewModel = ViewModelProvider(this).get(ActionsViewModel::class.java)
+        actionsViewModel.weatherModel.observe(this){
+            if(it.isSuccess){
+                ToastUtil.show(context, it.getOrNull()?.result?.realtime?.temperature?.toString() ?: "error")
+            }
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -48,11 +47,8 @@ class ActionsFragment : BaseFragment(),View.OnClickListener {
         btn_get_weather_info.setOnClickListener(this)
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>,
+                                            grantResults: IntArray) {
         locationHelper!!.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
@@ -63,25 +59,14 @@ class ActionsFragment : BaseFragment(),View.OnClickListener {
                 location();
             }
             R.id.btn_get_weather_info -> {
-                location(true)
+//                location(true)
+                getWeatherInfo(113.81413,22.63381)
             }
         }
     }
 
     private fun getWeatherInfo(longitude: Double, latitude: Double) {
-        ServiceCreator.create(CaiYunService::class.java)
-            .getRealtimeWeather(longitude, latitude)
-            .enqueue(object : Callback<RealtimeWeatherModel> {
-                override fun onResponse(call: Call<RealtimeWeatherModel>, response: Response<RealtimeWeatherModel>) {
-                    if(response.isSuccessful){
-                        ToastUtil.show(context, response.body()?.result?.realtime?.temperature?.toString() ?: "error")
-                    }
-                }
-
-                override fun onFailure(call: Call<RealtimeWeatherModel>, t: Throwable) {
-                }
-
-            })
+        actionsViewModel.getRealtimeWeather(longitude, latitude)
     }
 
     private fun location(getWeatherInfo: Boolean = false) {

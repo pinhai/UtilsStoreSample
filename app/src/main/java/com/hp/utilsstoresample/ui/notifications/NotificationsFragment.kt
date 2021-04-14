@@ -9,18 +9,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.hp.utilsstoresample.R
 import com.hp.utilsstoresample.ui.base.BaseFragment
-import com.hp.utilsstoresample.ui.home.HomeFragment
 
-class NotificationsFragment : BaseFragment() {
+class NotificationsFragment private constructor(): BaseFragment() {
 
     private lateinit var notificationsViewModel: NotificationsViewModel
 
     companion object{
         fun newInstance(): NotificationsFragment {
-            val args = Bundle()
-            val fragment = NotificationsFragment()
-            fragment.arguments = args
-            return fragment
+            return NotificationsFragment()
         }
     }
 

@@ -10,16 +10,13 @@ import androidx.lifecycle.ViewModelProvider
 import com.hp.utilsstoresample.R
 import com.hp.utilsstoresample.ui.base.BaseFragment
 
-class HomeFragment : BaseFragment() {
+class HomeFragment private constructor(): BaseFragment() {
 
     private lateinit var homeViewModel: HomeViewModel
 
     companion object{
         fun newInstance(): HomeFragment {
-            val args = Bundle()
-            val fragment = HomeFragment()
-            fragment.arguments = args
-            return fragment
+            return HomeFragment()
         }
     }
 
