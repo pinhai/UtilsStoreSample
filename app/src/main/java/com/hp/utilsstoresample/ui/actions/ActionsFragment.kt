@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.fragment_actions.*
 
 class ActionsFragment private constructor(): BaseFragment(),View.OnClickListener {
 
-    private lateinit var actionsViewModel: ActionsViewModel
+    private val actionsViewModel by lazy { ViewModelProvider(this).get(ActionsViewModel::class.java) }
 
     private var locationHelper: LocationHelper? = null
 
@@ -28,23 +28,22 @@ class ActionsFragment private constructor(): BaseFragment(),View.OnClickListener
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        initViewModel()
         return inflater.inflate(R.layout.fragment_actions, container, false)
     }
 
-    private fun initViewModel() {
-        actionsViewModel = ViewModelProvider(this).get(ActionsViewModel::class.java)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        initViewModelObservable()
+        btn_get_location.setOnClickListener(this)
+        btn_get_weather_info.setOnClickListener(this)
+    }
+
+    private fun initViewModelObservable() {
         actionsViewModel.weatherModel.observe(this){
             if(it.isSuccess){
                 ToastUtil.show(context, it.getOrNull()?.result?.realtime?.temperature?.toString() ?: "error")
             }
         }
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        btn_get_location.setOnClickListener(this)
-        btn_get_weather_info.setOnClickListener(this)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>,
