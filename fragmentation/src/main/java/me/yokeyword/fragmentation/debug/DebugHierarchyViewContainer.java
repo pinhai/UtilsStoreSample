@@ -83,7 +83,7 @@ public class DebugHierarchyViewContainer extends ScrollView {
                     @Override
                     public void onClick(View v) {
                         if (v.getTag(R.id.isexpand) != null) {
-                            boolean isExpand = (boolean) v.getTag(R.id.isexpand);
+                            boolean isExpand = (Boolean) v.getTag(R.id.isexpand);
                             if (isExpand) {
                                 childTvItem.setCompoundDrawablesWithIntrinsicBounds(R.drawable.fragmentation_ic_right, 0, 0, 0);
                                 DebugHierarchyViewContainer.this.removeView(finalChilHierarchy);
@@ -119,7 +119,7 @@ public class DebugHierarchyViewContainer extends ScrollView {
         int size = mLinearLayout.getChildCount();
         for (int i = size - 1; i >= 0; i--) {
             View view = mLinearLayout.getChildAt(i);
-            if ((int) view.getTag(R.id.hierarchy) >= hierarchy) {
+            if ((Integer) view.getTag(R.id.hierarchy) >= hierarchy) {
                 mLinearLayout.removeView(view);
             }
         }

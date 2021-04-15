@@ -120,7 +120,7 @@ public abstract class SupportTransaction {
         @Override
         public SupportTransaction addSharedElement(View sharedElement, String sharedName) {
             if (mRecord.sharedElementList == null) {
-                mRecord.sharedElementList = new ArrayList<>();
+                mRecord.sharedElementList = new ArrayList();
             }
             mRecord.sharedElementList.add(new TransactionRecord.SharedElement(sharedElement, sharedName));
             return this;

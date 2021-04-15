@@ -739,7 +739,7 @@ class FragmentationDelegate {
     }
 
     private List<DebugFragmentRecord> getFragmentRecords() {
-        List<DebugFragmentRecord> fragmentRecordList = new ArrayList<>();
+        List<DebugFragmentRecord> fragmentRecordList = new ArrayList();
 
         List<Fragment> fragmentList = mActivity.getSupportFragmentManager().getFragments();
 
@@ -775,7 +775,7 @@ class FragmentationDelegate {
     }
 
     private List<DebugFragmentRecord> getChildFragmentRecords(Fragment parentFragment) {
-        List<DebugFragmentRecord> fragmentRecords = new ArrayList<>();
+        List<DebugFragmentRecord> fragmentRecords = new ArrayList();
 
         List<Fragment> fragmentList = parentFragment.getChildFragmentManager().getFragments();
         if (fragmentList == null || fragmentList.size() < 1) return null;

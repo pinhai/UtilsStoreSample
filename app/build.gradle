@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    compileSdkVersion target_sdk_version
+    compileSdkVersion 30
     buildToolsVersion build_tools_version
 
     defaultConfig {
@@ -80,6 +80,7 @@ dependencies {
     //网络相关
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     //网络数据缓存

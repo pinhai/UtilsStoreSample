@@ -62,7 +62,7 @@ public class SupportActivity extends AppCompatActivity implements ISupport, Sens
     public void registerFragmentLifecycleCallbacks(FragmentLifecycleCallbacks callback) {
         synchronized (this) {
             if (mFragmentLifecycleCallbacks == null) {
-                mFragmentLifecycleCallbacks = new ArrayList<>();
+                mFragmentLifecycleCallbacks = new ArrayList();
                 mLifecycleHelper = new LifecycleHelper(mFragmentLifecycleCallbacks);
             }
             mFragmentLifecycleCallbacks.add(callback);

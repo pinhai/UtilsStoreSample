@@ -1,6 +1,8 @@
 package com.hp.utilsstoresample.logic.repository
 
+import com.hp.utils_store.utils.LogUtil
 import com.hp.utils_store.utils.NetworkUtil
+import com.hp.utils_store.utils.getClassName
 import com.hp.utilsstoresample.BaseApp
 import com.hp.utilsstoresample.constants.Constants
 import com.hp.utilsstoresample.logic.network.ServiceCreator
@@ -27,11 +29,12 @@ object CaiyunRepository : BaseRepository(){
 
     fun getRealtimeWeatherRx(lon: Double, lat: Double) = fire{
         val response = await {
+            LogUtil.d(getClassName(), "网络状态："+NetworkUtil.isNetworkConnected(BaseApp.context))
             val observable = ServiceCreator.create(CaiYunService::class.java).getRealtimeWeather(lon, lat)
             //使用RxCache缓存网络数据
             NetCacheProviders.providers
                 .getRealtimeWeather(observable, DynamicKey("/v2.5/${Constants.CAI_YUN_TOKEN}/"),
-                    EvictDynamicKey(!NetworkUtil.isMobileConnected(BaseApp.context)))
+                    EvictDynamicKey(NetworkUtil.isNetworkConnected(BaseApp.context)))
                 .subscribeOn(AndroidSchedulers.mainThread())
         }
         if(response.status == "ok") Result.success(response)

@@ -1,29 +1,48 @@
 package com.hp.utils_store.utils
 
-import android.app.Activity
-import android.app.AlertDialog
-import android.app.Dialog
 import android.content.Context
 import android.net.ConnectivityManager
+import android.net.Network
+import android.net.NetworkCapabilities
+import android.net.NetworkInfo
 import android.net.wifi.WifiManager
+import android.os.Build
 import java.net.Inet4Address
 import java.net.NetworkInterface
 import java.net.SocketException
+
 
 /**
  * 网络工具类
  */
 object NetworkUtil {
     /**
-     * 是否存在网络连接
+     * 是否存在网络连接，模拟器上可能失效
      */
     fun isNetworkConnected(context: Context?): Boolean {
-        if (context != null) {
-            val mConnectivityManager = context
-                    .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-            val mNetworkInfo = mConnectivityManager.activeNetworkInfo
-            if (mNetworkInfo != null) {
-                return mNetworkInfo.isAvailable
+        if (null == context) {
+            return false
+        }
+        val connectivity = context
+            .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            var networks = arrayOfNulls<Network>(0)
+            if (connectivity != null) {
+                networks = connectivity.allNetworks
+            }
+            for (network in networks) {
+                val capabilities = connectivity!!.getNetworkCapabilities(network)
+                if (capabilities != null && capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)) {
+                    return true
+                }
+            }
+        } else {
+            var info: NetworkInfo? = null
+            if (connectivity != null) {
+                info = connectivity.activeNetworkInfo
+            }
+            if (info != null && info.isAvailable) {
+                return true
             }
         }
         return false
@@ -33,14 +52,31 @@ object NetworkUtil {
      * WIFI是否连接
      */
     fun isWifiConnected(context: Context?): Boolean {
-        if (context != null) {
-            val mConnectivityManager = context
-                    .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-            val mWiFiNetworkInfo = mConnectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
-            if (mWiFiNetworkInfo != null) {
-                return mWiFiNetworkInfo.isAvailable
+        if (null == context) {
+            return false
+        }
+        val connectivity = context
+            .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (connectivity != null) {
+                val networks = connectivity.activeNetwork
+                val networkCapabilities = connectivity.getNetworkCapabilities(networks)
+                if (networkCapabilities != null) {
+                    if (networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                        return true
+                    }
+                }
+            }
+        } else {
+            val networkInfo = connectivity!!.activeNetworkInfo
+            if (networkInfo != null && networkInfo.isConnected) {
+                if (networkInfo.type == ConnectivityManager.TYPE_WIFI) {
+                    return true
+                }
             }
         }
+
         return false
     }
 
@@ -48,54 +84,32 @@ object NetworkUtil {
      * 手机网络是否连接
      */
     fun isMobileConnected(context: Context?): Boolean {
-        if (context != null) {
-            val mConnectivityManager = context
-                    .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-            val mMobileNetworkInfo = mConnectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)
-            if (mMobileNetworkInfo != null) {
-                return mMobileNetworkInfo.isAvailable
-            }
-        }
-        return false
-    }
-
-    /**
-     * 当前网络类型
-     */
-    fun getConnectedType(context: Context?): Int {
-        if (context != null) {
-            val mConnectivityManager = context
-                    .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-            val mNetworkInfo = mConnectivityManager.activeNetworkInfo
-            if (mNetworkInfo != null && mNetworkInfo.isAvailable) {
-                return mNetworkInfo.type
-            }
-        }
-        return -1
-    }
-
-    /**
-     * 检测网络，没有网络弹出对话框提醒
-     */
-    fun checkNetworkShowDialog(activity: Activity): Boolean {
-        if (!isNetworkConnected(activity)) {
-            dialog(activity)
+        if (null == context) {
             return false
         }
-        return true
-    }
+        val connectivity = context
+            .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
-    /**
-     * 弹出dialog
-     */
-    private fun dialog(activity: Activity) {
-        val builder = AlertDialog.Builder(activity)
-        builder.setMessage("网络连接没有打开！")
-        builder.setTitle("提示")
-        builder.setPositiveButton("确认") { dialog, which -> dialog.dismiss() }
-        val dialog: Dialog = builder.create()
-        dialog.setOnDismissListener { activity.finish() }
-        dialog.show()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (connectivity != null) {
+                val networks = connectivity.activeNetwork
+                val networkCapabilities = connectivity.getNetworkCapabilities(networks)
+                if (networkCapabilities != null) {
+                    if (networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                        return true
+                    }
+                }
+            }
+        } else {
+            val networkInfo = connectivity!!.activeNetworkInfo
+            if (networkInfo != null && networkInfo.isConnected) {
+                if (networkInfo.type == ConnectivityManager.TYPE_MOBILE) {
+                    return true
+                }
+            }
+        }
+
+        return false
     }
 
     fun getIPAddress(context: Context): String? {

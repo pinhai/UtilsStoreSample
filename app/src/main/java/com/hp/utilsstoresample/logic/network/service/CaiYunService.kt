@@ -3,7 +3,6 @@ package com.hp.utilsstoresample.logic.network.service
 import com.hp.utilsstoresample.constants.Constants
 import com.hp.utilsstoresample.logic.model.response.RealtimeWeatherModel
 import io.reactivex.Observable
-import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
 

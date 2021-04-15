@@ -37,7 +37,7 @@ object PermissionUtil {
      */
     fun requestPermission(context: Context?, perm: Array<String?>, requestCode: Int) {
         if (!checkPermissions(context, perm)) {
-            LogUtil.v(TAG, "请求权限:$perm")
+            LogUtil.v(TAG, "请求权限:${perm[0]}")
             ActivityCompat.requestPermissions((context as Activity?)!!, perm, requestCode)
         }
     }
@@ -47,7 +47,7 @@ object PermissionUtil {
      */
     fun requestPermissionFragment(fragment: Fragment, perm: Array<String?>, requestCode: Int) {
         if (!checkPermissions(fragment.activity, perm)) {
-            LogUtil.v(TAG, "请求权限:$perm")
+            LogUtil.v(TAG, "请求权限:${perm[0]}")
             fragment.requestPermissions(perm, requestCode)
         }
     }
