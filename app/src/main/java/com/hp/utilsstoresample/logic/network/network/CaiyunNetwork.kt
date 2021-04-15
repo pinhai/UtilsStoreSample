@@ -12,6 +12,6 @@ object CaiyunNetwork : BaseNetwork() {
 
     private val service = ServiceCreator.create(CaiYunService::class.java)
 
-    suspend fun getRealtimeWeather(lon: Double, lat: Double) = service.getRealtimeWeather(lon, lat).await()
+//    suspend fun getRealtimeWeather(lon: Double, lat: Double) = service.getRealtimeWeather(lon, lat).await()
 
 }

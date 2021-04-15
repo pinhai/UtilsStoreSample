@@ -8,4 +8,16 @@ import android.app.Application
 
  */
 class BaseApp : Application() {
+
+    companion object{
+        val context
+            get() = _context
+        private lateinit var _context: Application
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+        _context = this
+    }
+
 }
