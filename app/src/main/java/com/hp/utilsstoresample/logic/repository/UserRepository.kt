@@ -1,9 +1,9 @@
 package com.hp.utilsstoresample.logic.repository
 
 import android.content.Context
+import android.database.SQLException
 import com.hp.utilsstoresample.logic.database.dao.UserDao
 import com.hp.utilsstoresample.logic.database.entity.User
-import java.lang.Exception
 
 /**
  *
@@ -18,7 +18,7 @@ object UserRepository: BaseRepository() {
     fun insertUser(context: Context, user: User) = fire {
         val id = getDao(context).insertUser(user)
         if(id != null) Result.success(id)
-        else Result.failure(Exception("新增失败"))
+        else Result.failure(SQLException("新增失败"))
     }
 
     fun deleteUserById(context: Context, id: Long) = fire{
@@ -34,13 +34,13 @@ object UserRepository: BaseRepository() {
     fun selectUserById(context: Context, id: Long) = fire {
         val user = getDao(context).selectById(id)
         if(user != null) Result.success(user)
-        else Result.failure(Exception("查询失败"))
+        else Result.failure(SQLException("查询失败"))
     }
 
     fun selectAllUser(context: Context) = fire{
         val users = getDao(context).selectAllUser()
         if(users != null) Result.success(users)
-        else Result.failure(Exception("查询失败"))
+        else Result.failure(SQLException("查询失败"))
     }
 
 }

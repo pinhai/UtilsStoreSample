@@ -13,6 +13,12 @@ class DatabaseViewModel : ViewModel() {
 
     fun insertUser(context: Context, user: User) = UserRepository.insertUser(context, user)
 
+    fun deleteUser(context: Context, id: Long) = UserRepository.deleteUserById(context, id)
+
+    fun updateUser(context: Context, user: User) = UserRepository.updateUser(context, user)
+
     fun selectUserById(context: Context, id: Long) = UserRepository.selectUserById(context, id)
+
+    fun selectAllUser(context: Context) = UserRepository.selectAllUser(context)
 
 }
