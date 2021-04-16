@@ -28,6 +28,6 @@ interface NetCacheProviders {
 
     @ProviderKey("realtime-weather")
     @LifeCache(duration = 15, timeUnit = TimeUnit.DAYS)
-    fun getRealtimeWeather(o: Observable<RealtimeWeatherModel>, key: DynamicKey, evictDynamicKey: EvictDynamicKey) : Observable<RealtimeWeatherModel>
+    fun obtainRealtimeWeather(o: Observable<RealtimeWeatherModel>, key: DynamicKey, evictDynamicKey: EvictDynamicKey) : Observable<RealtimeWeatherModel>
 
 }

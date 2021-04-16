@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.fragment_actions.*
 
 class ActionsFragment private constructor(): BaseFragment(),View.OnClickListener {
 
-    private val actionsViewModel by lazy { ViewModelProvider(this).get(ActionsViewModel::class.java) }
+    private val viewModel by lazy { ViewModelProvider(this).get(ActionsViewModel::class.java) }
 
     private var locationHelper: LocationHelper? = null
 
@@ -36,10 +36,11 @@ class ActionsFragment private constructor(): BaseFragment(),View.OnClickListener
         initViewModelObservable()
         btn_get_location.setOnClickListener(this)
         btn_get_weather_info.setOnClickListener(this)
+        btn_database.setOnClickListener(this)
     }
 
     private fun initViewModelObservable() {
-        actionsViewModel.weatherModel.observe(this){
+        viewModel.weatherModel.observe(viewLifecycleOwner){
             if(it.isSuccess){
                 ToastUtil.show(context, it.getOrNull()?.result?.realtime?.temperature?.toString() ?: "error")
             }
@@ -61,11 +62,14 @@ class ActionsFragment private constructor(): BaseFragment(),View.OnClickListener
 //                location(true)
                 getWeatherInfo(113.81413,22.63381)
             }
+            R.id.btn_database -> {
+                DatabaseActivity.start(v.context)
+            }
         }
     }
 
     private fun getWeatherInfo(longitude: Double, latitude: Double) {
-        actionsViewModel.getRealtimeWeather(longitude, latitude)
+        viewModel.getRealtimeWeather(longitude, latitude)
     }
 
     private fun location(getWeatherInfo: Boolean = false) {

@@ -11,7 +11,7 @@ class ActionsViewModel : ViewModel() {
     private var latitude : Double = 0.0
 
     val weatherModel = Transformations.switchMap(longitude){lon ->
-        CaiyunRepository.getRealtimeWeatherRx(lon, latitude)
+        CaiyunRepository.obtainRealtimeWeather(lon, latitude)
     }
 
     fun getRealtimeWeather(lon: Double, lat: Double){

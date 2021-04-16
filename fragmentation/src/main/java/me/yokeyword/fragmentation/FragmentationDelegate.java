@@ -297,16 +297,16 @@ class FragmentationDelegate {
         if (Fragmentation.getDefault().isDebug()) {
             transaction.commit();
         } else {
-            boolean stateSaved = FragmentTransactionBugFixHack.isStateSaved(fragmentManager);
-            if (stateSaved) {
-                // 这里的警告请重视，请在Activity回来后，在onPostResume()中执行该事务
-                Log.e(TAG, "Please beginTransaction in onPostResume() after the Activity returns!");
-                IllegalStateException e = new IllegalStateException("Can not perform this action after onSaveInstanceState!");
-                e.printStackTrace();
-                if (Fragmentation.getDefault().getHandler() != null) {
-                    Fragmentation.getDefault().getHandler().onException(e);
-                }
-            }
+//            boolean stateSaved = FragmentTransactionBugFixHack.isStateSaved(fragmentManager);
+//            if (stateSaved) {
+//                // 这里的警告请重视，请在Activity回来后，在onPostResume()中执行该事务
+//                Log.e(TAG, "Please beginTransaction in onPostResume() after the Activity returns!");
+//                IllegalStateException e = new IllegalStateException("Can not perform this action after onSaveInstanceState!");
+//                e.printStackTrace();
+//                if (Fragmentation.getDefault().getHandler() != null) {
+//                    Fragmentation.getDefault().getHandler().onException(e);
+//                }
+//            }
             transaction.commitAllowingStateLoss();
         }
     }

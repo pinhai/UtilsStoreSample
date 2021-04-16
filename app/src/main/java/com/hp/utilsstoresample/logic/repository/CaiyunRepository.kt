@@ -20,20 +20,20 @@ import java.lang.RuntimeException
  */
 object CaiyunRepository : BaseRepository(){
 
-//    fun getRealtimeWeather(lon: Double, lat: Double) = fire {
-//        //此处直接获取网络数据
-//        val response = CaiyunNetwork.getRealtimeWeather(lon, lat)
-//        if(response.status == "ok") Result.success(response)
-//        else Result.failure(RuntimeException("response status is ${response.status}"))
-//    }
+    /*fun getRealtimeWeather(lon: Double, lat: Double) = fire {
+        //此处直接获取网络数据
+        val response = CaiyunNetwork.getRealtimeWeather(lon, lat)
+        if(response.status == "ok") Result.success(response)
+        else Result.failure(RuntimeException("response status is ${response.status}"))
+    }*/
 
-    fun getRealtimeWeatherRx(lon: Double, lat: Double) = fire{
-        val response = await {
+    fun obtainRealtimeWeather(lon: Double, lat: Double) = fire{
+        val response = obtainResponse {
             LogUtil.d(getClassName(), "网络状态："+NetworkUtil.isNetworkConnected(BaseApp.context))
-            val observable = ServiceCreator.create(CaiYunService::class.java).getRealtimeWeather(lon, lat)
+            val observable = ServiceCreator.create(CaiYunService::class.java).obtainRealtimeWeather(lon, lat)
             //使用RxCache缓存网络数据
             NetCacheProviders.providers
-                .getRealtimeWeather(observable, DynamicKey("/v2.5/${Constants.CAI_YUN_TOKEN}/"),
+                .obtainRealtimeWeather(observable, DynamicKey("/v2.5/${Constants.CAI_YUN_TOKEN}/"),
                     EvictDynamicKey(NetworkUtil.isNetworkConnected(BaseApp.context)))
                 .subscribeOn(AndroidSchedulers.mainThread())
         }

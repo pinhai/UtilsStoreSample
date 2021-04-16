@@ -4,16 +4,16 @@ plugins {
 }
 
 android {
-    compileSdkVersion target_sdk_version
+    compileSdkVersion "$target_sdk_version".toInteger()
     buildToolsVersion build_tools_version
 
 
     defaultConfig {
-        minSdkVersion min_sdk_version
-        targetSdkVersion target_sdk_version
+        minSdkVersion "$min_sdk_version".toInteger()
+        targetSdkVersion "$target_sdk_version".toInteger()
     }
 }
 
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation "androidx.appcompat:appcompat:$appcompat_version"
 }
