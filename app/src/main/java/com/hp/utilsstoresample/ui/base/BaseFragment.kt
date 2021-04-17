@@ -9,6 +9,4 @@ import me.yokeyword.fragmentation.SupportFragment
  */
 open class BaseFragment():  SupportFragment(){
 
-    val TAG = this.javaClass.name
-
 }
