@@ -1,6 +1,7 @@
 package com.hp.utilsstoresample.ui
 
 import android.os.Bundle
+import com.gyf.immersionbar.ImmersionBar
 import com.hp.utils_store.widget.bottombar.BottomBar
 import com.hp.utils_store.widget.bottombar.BottomBarTab
 import com.hp.utilsstoresample.R
@@ -22,6 +23,9 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        ImmersionBar.with(this)
+            .init()
 
         if (savedInstanceState == null) {
             mFragments[FIRST] = HomeFragment.newInstance()

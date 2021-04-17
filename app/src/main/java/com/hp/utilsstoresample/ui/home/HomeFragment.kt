@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import com.gyf.immersionbar.ImmersionBar
 import com.hp.utilsstoresample.R
 import com.hp.utilsstoresample.adapter.viewpager.MyFragmentPagerAdapter
 import com.hp.utilsstoresample.ui.base.BaseFragment
@@ -29,11 +30,17 @@ class HomeFragment private constructor(): BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        ImmersionBar.setTitleBar(activity, toolbar)
+        //因为toolbar增加了状态栏的高度
+        toolbar_layout.minimumHeight = ImmersionBar.getActionBarHeight(activity!!) +
+                ImmersionBar.getStatusBarHeight(activity!!)
+
         toolbar.title = "我是标题"
 
-        val fragments = arrayListOf(NotificationsFragment.newInstance(),
-            NotificationsFragment.newInstance(), NotificationsFragment.newInstance(),
-            NotificationsFragment.newInstance()
+        val fragments = arrayListOf(HomeListFragment.newInstance(),
+            HomeListFragment.newInstance(), HomeListFragment.newInstance(),
+            HomeListFragment.newInstance()
         )
         val pagerAdapter = MyFragmentPagerAdapter(childFragmentManager, fragments)
         viewpager.adapter = pagerAdapter
