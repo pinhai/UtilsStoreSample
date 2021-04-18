@@ -10,14 +10,13 @@ import com.hp.utilsstoresample.R
 /**
  * Author：admin_h on 2021/4/17 22:02
  */
-class HomeListAdapter(private var data: List<String>) : RecyclerView.Adapter<HomeListAdapter.MyViewHolder>() {
+class HomeListAdapter() : RecyclerView.Adapter<HomeListAdapter.MyViewHolder>() {
 
-    inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val tv_message: TextView = itemView.findViewById(R.id.tv_message)
+    private var data: List<String> = emptyList()
 
-        fun bind(position: Int){
-            tv_message.setText(data[position])
-        }
+    fun setData(data: List<String>){
+        this.data = data
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -31,6 +30,14 @@ class HomeListAdapter(private var data: List<String>) : RecyclerView.Adapter<Hom
 
     override fun getItemCount(): Int {
         return data.size
+    }
+
+    inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val tv_message: TextView = itemView.findViewById(R.id.tv_message)
+
+        fun bind(position: Int){
+            tv_message.setText(data[position])
+        }
     }
 
 }

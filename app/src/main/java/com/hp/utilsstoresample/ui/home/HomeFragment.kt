@@ -38,12 +38,15 @@ class HomeFragment private constructor(): BaseFragment() {
 
         toolbar.title = "我是标题"
 
-        val fragments = arrayListOf(HomeListFragment.newInstance(),
-            HomeListFragment.newInstance(), HomeListFragment.newInstance(),
+        val fragments = arrayListOf(
+            HomeListFragment.newInstance(),
+            HomeListFragment.newInstance(),
+            HomeListFragment.newInstance(),
             HomeListFragment.newInstance()
         )
         val pagerAdapter = MyFragmentPagerAdapter(childFragmentManager, fragments)
         viewpager.adapter = pagerAdapter
+        viewpager.offscreenPageLimit = fragments.size - 1
         tabs.setupWithViewPager(viewpager)
         tabs.getTabAt(0)?.setText(R.string.tab1)
         tabs.getTabAt(1)?.setText(R.string.tab2)
