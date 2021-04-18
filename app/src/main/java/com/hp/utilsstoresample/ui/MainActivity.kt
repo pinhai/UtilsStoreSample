@@ -59,6 +59,11 @@ class MainActivity : BaseActivity() {
     private val onTabSelectedListener = object : BottomBar.OnTabSelectedListener {
             override fun onTabSelected(position: Int, prePosition: Int) {
                 showHideFragment(mFragments[position], mFragments[prePosition])
+                if(position == 0){
+                    ImmersionBar.with(this@MainActivity).statusBarDarkFont(false).init()
+                }else{
+                    ImmersionBar.with(this@MainActivity).statusBarDarkFont(true).init()
+                }
             }
 
             override fun onTabUnselected(position: Int) {}

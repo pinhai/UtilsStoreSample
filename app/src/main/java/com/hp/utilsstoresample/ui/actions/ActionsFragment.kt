@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import com.gyf.immersionbar.ImmersionBar
 import com.hp.utils_store.utils.LogUtil
 import com.hp.utils_store.utils.ToastUtil
 import com.hp.utils_store.utils.getClassName
@@ -33,6 +34,7 @@ class ActionsFragment private constructor(): BaseFragment(),View.OnClickListener
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        ImmersionBar.setTitleBar(this, contentLayout)
         initViewModelObservable()
         btn_get_location.setOnClickListener(this)
         btn_get_weather_info.setOnClickListener(this)

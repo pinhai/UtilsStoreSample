@@ -32,7 +32,8 @@ class HomeFragment private constructor(): BaseFragment() {
         super.onActivityCreated(savedInstanceState)
 
         ImmersionBar.setTitleBar(activity, toolbar)
-        //因为toolbar增加了状态栏的高度
+        //这里应该是CoordinatorLayout的一个bug，计算下面的布局高度会比实际需要的多（比如ViewPager，NestedScrollView）
+        //它应该是把CollapsingToolbarLayout折叠后的高度计算为0了
         toolbar_layout.minimumHeight = ImmersionBar.getActionBarHeight(activity!!) +
                 ImmersionBar.getStatusBarHeight(activity!!)
 
