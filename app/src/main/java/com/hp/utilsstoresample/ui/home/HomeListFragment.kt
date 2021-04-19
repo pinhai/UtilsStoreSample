@@ -11,6 +11,7 @@ import com.hp.utils_store.utils.getClassName
 import com.hp.utilsstoresample.R
 import com.hp.utilsstoresample.adapter.recyclerview.HomeListAdapter
 import com.hp.utilsstoresample.ui.base.BaseFragment
+import com.hp.utilsstoresample.widget.listener.ImageLoadScrollListener
 import kotlinx.android.synthetic.main.fragment_home_list.*
 
 /**
@@ -75,6 +76,7 @@ class HomeListFragment private constructor(): BaseFragment() {
         listAdapter = HomeListAdapter()
         recycleView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         recycleView.adapter = listAdapter
+        recycleView.addOnScrollListener(ImageLoadScrollListener(listAdapter))
     }
 
 }

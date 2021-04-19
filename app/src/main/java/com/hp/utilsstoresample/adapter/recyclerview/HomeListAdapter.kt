@@ -3,9 +3,11 @@ package com.hp.utilsstoresample.adapter.recyclerview
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.hp.utilsstoresample.R
+import com.squareup.picasso.Picasso
 
 /**
  * Author：admin_h on 2021/4/17 22:02
@@ -34,9 +36,13 @@ class HomeListAdapter() : RecyclerView.Adapter<HomeListAdapter.MyViewHolder>() {
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val tv_message: TextView = itemView.findViewById(R.id.tv_message)
+        private val iv_header: ImageView = itemView.findViewById(R.id.iv_header)
 
         fun bind(position: Int){
             tv_message.setText(data[position])
+            Picasso.get().load("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fyouimg1.c-ctrip.com%2Ftarget%2Ftg%2F035%2F063%2F726%2F3ea4031f045945e1843ae5156749d64c.jpg&refer=http%3A%2F%2Fyouimg1.c-ctrip.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1621441482&t=be1f90a00b6904b4952b82ecfeaf7f0d")
+                .tag(this@HomeListAdapter)
+                .into(iv_header)
         }
     }
 
