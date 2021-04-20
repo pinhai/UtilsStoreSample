@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.hp.utils_store.widget.LightTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        app:text="我是轻量化TextView"
+        app:textSize="@dimen/font_twenty_eight"
+        app:textColor="@android:color/holo_red_light"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:background="@android:color/holo_blue_bright"
+        android:text="我是TextView"
+        android:textSize="@dimen/font_twenty_eight"
+        android:textColor="@android:color/holo_red_light"
+        />
+
+</RelativeLayout>

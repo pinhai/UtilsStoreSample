@@ -20,13 +20,6 @@ import java.lang.RuntimeException
  */
 object CaiyunRepository : BaseRepository(){
 
-    /*fun getRealtimeWeather(lon: Double, lat: Double) = fire {
-        //此处直接获取网络数据
-        val response = CaiyunNetwork.getRealtimeWeather(lon, lat)
-        if(response.status == "ok") Result.success(response)
-        else Result.failure(RuntimeException("response status is ${response.status}"))
-    }*/
-
     fun obtainRealtimeWeather(lon: Double, lat: Double) = fire{
         val response = obtainResponse {
             LogUtil.d(getClassName(), "网络状态："+NetworkUtil.isNetworkConnected(BaseApp.context))

@@ -30,7 +30,16 @@
             android:id="@+id/btn_database"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAllCaps="false"
             android:text="Room数据库"
+            android:layout_marginTop="20dp"
+            />
+        <Button
+            android:id="@+id/btn_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:text="轻量化TextView"
             android:layout_marginTop="20dp"
             />
     </LinearLayout>

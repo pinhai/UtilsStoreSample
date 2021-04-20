@@ -39,6 +39,7 @@ class ActionsFragment private constructor(): BaseFragment(),View.OnClickListener
         btn_get_location.setOnClickListener(this)
         btn_get_weather_info.setOnClickListener(this)
         btn_database.setOnClickListener(this)
+        btn_textview.setOnClickListener(this)
     }
 
     private fun initViewModelObservable() {
@@ -66,6 +67,9 @@ class ActionsFragment private constructor(): BaseFragment(),View.OnClickListener
             }
             R.id.btn_database -> {
                 DatabaseActivity.start(v.context)
+            }
+            R.id.btn_textview -> {
+                context?.let { LightTextViewActivity.start(it) }
             }
         }
     }
