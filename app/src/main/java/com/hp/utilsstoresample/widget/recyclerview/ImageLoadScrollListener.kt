@@ -1,4 +1,4 @@
-package com.hp.utilsstoresample.widget.listener
+package com.hp.utilsstoresample.widget.recyclerview
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE
@@ -9,7 +9,7 @@ import com.squareup.picasso.Picasso
 import kotlin.math.abs
 
 /**
- * 通过计算滚动速度来判断是否加载图片
+ * 通过计算滚动速度来判断暂停加载或者恢复加载图片
  * Author：admin_h on 2021/4/19 23:16
  */
 class ImageLoadScrollListener(private val tag: Any) : RecyclerView.OnScrollListener() {
