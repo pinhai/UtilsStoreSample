@@ -9,7 +9,9 @@ import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
 import com.hp.utils_store.R
+import com.hp.utils_store.utils.LogUtil
 import com.hp.utils_store.utils.ScreenUtil
+import com.hp.utils_store.utils.getClassName
 
 /**
  * 自定义轻量化TextView
@@ -73,8 +75,10 @@ class LightTextView : View {
         mPaint.setColor(mTextColor)
         // 计算出基线和到文字中间的距离
         val offset = Math.abs(mPaint.ascent() + mPaint.descent()) / 2
+        val xTemp = width.toFloat() / 2 - rect.width().toFloat() / 2
+        val x = if(xTemp < 0) 0F else xTemp
         canvas.drawText(mText,
-            width.toFloat() / 2 - rect.width().toFloat() / 2,
+            x,
             height.toFloat() / 2 + offset,
             mPaint)
     }
@@ -87,12 +91,16 @@ class LightTextView : View {
         var width = 0
         var height = 0
 
+        LogUtil.v(getClassName(), "widthMode:$widthMode, widthSize:$widthSize")
+
         if(widthMode == MeasureSpec.EXACTLY){
             width = widthSize
         }else{
             mPaint.textSize = mTextSize.toFloat()
             mPaint.getTextBounds(mText, 0, mText.length, rect)
             width = paddingLeft + rect.width() + paddingRight
+            //最大不能超过父View
+            width = Math.min(width, widthSize)
         }
 
         if(heightMode == MeasureSpec.EXACTLY){
@@ -101,6 +109,7 @@ class LightTextView : View {
             mPaint.textSize = mTextSize.toFloat()
             mPaint.getTextBounds(mText, 0, mText.length, rect)
             height = paddingTop + rect.height() + paddingBottom
+            height = Math.min(height, heightSize)
         }
 
         setMeasuredDimension(width, height)
