@@ -1,7 +1,5 @@
 package com.hp.utilsstoresample.ui.actions
 
-import android.R.*
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color

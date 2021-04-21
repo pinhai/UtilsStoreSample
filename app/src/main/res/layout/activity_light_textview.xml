@@ -21,7 +21,7 @@
         android:id="@+id/ltv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="20dp"
+        android:padding="10dp"
         android:background="@android:color/holo_orange_light"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -30,6 +30,9 @@
         app:text="我是轻量化TextView ddddddddddddddddddd"
         app:textSize="@dimen/font_twenty_eight"
         app:textColor="@android:color/holo_red_light"
+        app:drawableLeft="@drawable/ic_avater_flag_3"
+        app:drawableRight="@drawable/ic_avater_flag_2"
+        app:drawablePadding="30dp"
         />
 
     <EditText
