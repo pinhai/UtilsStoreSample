@@ -1,6 +1,7 @@
 package com.hp.library.utils
 
 import android.util.Log
+import com.hp.library.BuildConfig
 
 /**
 
@@ -14,7 +15,10 @@ object LogUtil {
     private const val INFO = 3
     private const val WARNING = 4
     private const val ERROR = 5
-    private const val level = VERBOSE  //发布时可改成ERROR，这样只会打印错误信息
+    //发布时为ERROR，这样只会打印错误信息
+    private val level by lazy {
+        if(BuildConfig.DEBUG) VERBOSE else ERROR
+    }
 
     fun v(tag: String, msg: String){
         if(level <= VERBOSE) Log.v(tag, msg)
