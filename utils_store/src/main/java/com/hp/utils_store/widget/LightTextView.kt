@@ -8,6 +8,7 @@ import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
 import androidx.annotation.ColorInt
+import androidx.annotation.DrawableRes
 import com.hp.utils_store.R
 import com.hp.utils_store.utils.LogUtil
 import com.hp.utils_store.utils.getClassName
@@ -58,9 +59,6 @@ class LightTextView : View {
         textRect = Rect()
         showTextRect = Rect()
         mPaint = Paint()
-        setTextRawBounds()
-
-        setDrawableRawBounds()
     }
 
     override fun onDraw(canvas: Canvas?) {
@@ -92,6 +90,7 @@ class LightTextView : View {
         LogUtil.v(getClassName(), "widthMode:$widthMode, widthSize:$widthSize")
 
         setTextRawBounds()
+        setDrawableRawBounds()
         //测量View的宽度
         if(widthMode == MeasureSpec.EXACTLY){
             width = widthSize
@@ -202,23 +201,22 @@ class LightTextView : View {
 
     fun getTextColor() = mTextColor
 
-    fun setDrawableLeft(drawable: Drawable?){
-        drawable?.let {
-            drawableLeft = drawable
-            requestLayout()
-        }
+    fun setCompoundDrawablesWithIntrinsicBounds(@DrawableRes left: Int = 0, @DrawableRes right: Int = 0){
+        setCompoundDrawablesWithIntrinsicBounds(if(left != 0) context.getDrawable(left) else null,
+                if(right != 0) context.getDrawable(right) else null)
     }
 
-    fun setDrawableRight(drawable: Drawable?){
-        drawable?.let {
-            drawableRight = drawable
-            requestLayout()
-        }
-    }
-
-    fun setDrawablePadding(padding: Int){
-        drawablePadding = padding
+    fun setCompoundDrawablesWithIntrinsicBounds(left: Drawable?, right: Drawable?){
+        drawableLeft = left
+        drawableRight = right
         requestLayout()
+    }
+
+    fun setCompoundDrawablePadding(padding: Int){
+        if(padding != drawablePadding){
+            drawablePadding = padding
+            requestLayout()
+        }
     }
 
 }

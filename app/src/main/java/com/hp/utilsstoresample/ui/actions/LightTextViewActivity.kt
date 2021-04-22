@@ -5,6 +5,8 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import com.hp.utils_store.utils.LogUtil
+import com.hp.utils_store.utils.getClassName
 import com.hp.utilsstoresample.R
 import com.hp.utilsstoresample.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_light_textview.*
@@ -26,6 +28,7 @@ class LightTextViewActivity: BaseActivity(), View.OnClickListener {
         setContentView(R.layout.activity_light_textview)
     }
 
+    private var count: Int = 0
     override fun onClick(v: View?) {
         when(v!!.id){
             R.id.btn_ok -> {
@@ -39,6 +42,21 @@ class LightTextViewActivity: BaseActivity(), View.OnClickListener {
                 }else{
                     ltv.setTextColor(resColor)
                 }
+            }
+            R.id.btn_changeDrawable -> {
+                LogUtil.d(getClassName(), "count%3:${count%3}")
+                when(count % 3) {
+                    0 -> {
+                        ltv.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_avater_flag_2, R.drawable.ic_avater_flag_3)
+                    }
+                    1 -> {
+                        ltv.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_avater_flag_3, R.drawable.ic_avater_flag_2)
+                    }
+                    else -> {
+                        ltv.setCompoundDrawablesWithIntrinsicBounds()
+                    }
+                }
+                count++
             }
         }
     }
