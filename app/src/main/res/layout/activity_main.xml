@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"/>
 
-    <com.hp.utils_store.widget.bottombar.BottomBar
+    <com.hp.library.widget.bottombar.BottomBar
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"

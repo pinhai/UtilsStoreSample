@@ -44,4 +44,4 @@
 -dontwarn com.gyf.immersionbar.**
 
 #保留所有实体类，因为会用到反射
--keep class com.hp.utilsstoresample.logic.model.** {*;}
+-keep class com.hp.sample.logic.model.** {*;}

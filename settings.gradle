@@ -1,5 +1,4 @@
-include ':mylibrary'
 include ':fragmentation'
-include ':utils_store'
+include ':library'
 include ':app'
 rootProject.name = "UtilsStoreSample"

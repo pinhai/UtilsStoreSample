@@ -19,7 +19,7 @@
         android:textColor="@android:color/holo_red_light"
         />
 
-    <com.hp.utils_store.widget.LightTextView
+    <com.hp.library.widget.LightTextView
         android:id="@+id/ltv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
