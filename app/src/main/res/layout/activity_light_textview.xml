@@ -27,12 +27,12 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:text="我是轻量化TextView ddddddddddddddddddd"
+        app:text="我是轻量化TextView hahahahaha"
         app:textSize="@dimen/font_twenty_eight"
         app:textColor="@android:color/holo_red_light"
         app:drawableLeft="@drawable/ic_avater_flag_3"
         app:drawableRight="@drawable/ic_avater_flag_2"
-        app:drawablePadding="30dp"
+        app:drawablePadding="5dp"
         />
 
     <EditText
