@@ -1,7 +1,10 @@
 package com.hp.sample.ui
 
 import android.os.Bundle
+import android.view.MotionEvent
 import com.gyf.immersionbar.ImmersionBar
+import com.hp.library.utils.LogUtil
+import com.hp.library.utils.getClassName
 import com.hp.library.widget.bottombar.BottomBar
 import com.hp.library.widget.bottombar.BottomBarTab
 import com.hp.sample.R

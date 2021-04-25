@@ -25,28 +25,45 @@ class HomeListFragment private constructor(): BaseFragment() {
     private lateinit var viewModel: HomeListViewModel
     private lateinit var listAdapter: HomeListAdapter
 
+    private lateinit var mTag: String
+
     companion object{
-        fun newInstance(): HomeListFragment {
-            return HomeListFragment()
+        fun newInstance(tag: String): HomeListFragment {
+            val bundle = Bundle()
+            bundle.putString("tag", tag)
+            val fragment = HomeListFragment()
+            fragment.arguments = bundle
+            return fragment
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        mTag = arguments?.getString("tag") ?: ""
+        LogUtil.d(getClassName(), "onCreate $mTag")
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        LogUtil.d(getClassName(), "onCreateView")
+        LogUtil.d(getClassName(), "onCreateView $mTag")
         viewModel = ViewModelProvider(this).get(HomeListViewModel::class.java)
         return inflater.inflate(R.layout.fragment_home_list, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        LogUtil.d(getClassName(), "onActivityCreated")
+        LogUtil.d(getClassName(), "onActivityCreated $mTag")
         initView()
         initObserver()
-        initData()
     }
 
-    private fun initData() {
+    override fun onLazyInitView(savedInstanceState: Bundle?) {
+        super.onLazyInitView(savedInstanceState)
+        LogUtil.d(getClassName(), "onLazyInitView $mTag")
+        loadData()
+    }
+
+    private fun loadData() {
         viewModel.obtainData(1)
     }
 

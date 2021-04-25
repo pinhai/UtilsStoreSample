@@ -39,10 +39,10 @@ class HomeFragment private constructor(): BaseFragment() {
         toolbar.title = "我是标题"
 
         val fragments = arrayListOf(
-            HomeListFragment.newInstance(),
-            HomeListFragment.newInstance(),
-            HomeListFragment.newInstance(),
-            HomeListFragment.newInstance()
+            HomeListFragment.newInstance("tag1"),
+            HomeListFragment.newInstance("tag2"),
+            HomeListFragment.newInstance("tag3"),
+            HomeListFragment.newInstance("tag4")
         )
         val pagerAdapter = MyFragmentPagerAdapter(childFragmentManager, fragments)
         viewpager.adapter = pagerAdapter
