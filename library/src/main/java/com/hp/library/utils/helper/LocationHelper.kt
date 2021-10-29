@@ -17,6 +17,7 @@ import com.hp.library.utils.AppUtil
 import com.hp.library.utils.LogUtil
 import com.hp.library.utils.PermissionUtil
 import com.hp.library.utils.getClassName
+import java.lang.Exception
 
 /**
  * 获取用户的地理位置
@@ -150,11 +151,15 @@ class LocationHelper(context: Context) {
     }
 
     private fun locationSuccessful(it: Location) {
-        //根据经纬度获取地址
-        val geocoder = Geocoder(mContext)
-        val addresses = geocoder.getFromLocation(it.latitude, it.longitude, 1)
-        listener?.onLocationResult(addresses[0])
-        LogUtil.v(getClassName(), addresses[0].toString())
+        try {
+            //根据经纬度获取地址
+            val geocoder = Geocoder(mContext)
+            val addresses = geocoder.getFromLocation(it.latitude, it.longitude, 1)
+            listener?.onLocationResult(addresses[0])
+            LogUtil.v(getClassName(), addresses[0].toString())
+        }catch (e: Exception){
+            locationFailed()
+        }
     }
 
     private fun locationFailed() {
