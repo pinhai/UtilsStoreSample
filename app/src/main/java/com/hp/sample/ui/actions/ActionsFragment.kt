@@ -86,6 +86,7 @@ class ActionsFragment private constructor(): BaseFragment(),View.OnClickListener
             }
 
             override fun onLocationFailed() {
+                ToastUtil.show(context, "定位失败")
             }
         })
     }
