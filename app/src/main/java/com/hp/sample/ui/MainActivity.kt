@@ -1,15 +1,12 @@
 package com.hp.sample.ui
 
 import android.os.Bundle
-import android.view.MotionEvent
 import com.gyf.immersionbar.ImmersionBar
-import com.hp.library.utils.LogUtil
-import com.hp.library.utils.getClassName
 import com.hp.library.widget.bottombar.BottomBar
 import com.hp.library.widget.bottombar.BottomBarTab
 import com.hp.sample.R
-import com.hp.sample.ui.base.BaseActivity
 import com.hp.sample.ui.actions.ActionsFragment
+import com.hp.sample.ui.base.BaseActivity
 import com.hp.sample.ui.home.HomeFragment
 import com.hp.sample.ui.notifications.NotificationsFragment
 import kotlinx.android.synthetic.main.activity_main.*
